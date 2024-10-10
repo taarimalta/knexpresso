@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: knexpresso-db
+    environment:
+      POSTGRES_USER: knexpresso
+      POSTGRES_PASSWORD: knexpresso_password
+      POSTGRES_DB: knexpresso_db
+    ports:
+      - "5432:5432"
+    networks:
+      - knexpresso-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U knexpresso"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  db-init:
+    image: postgres:15-alpine
+    container_name: db-init
+    working_dir: /docker-entrypoint-initdb.d
+    command: >
+      sh -c "
+        while ! pg_isready -h db -p 5432 > /dev/null; do 
+          echo 'Waiting for PostgreSQL...'; 
+          sleep 2; 
+        done; 
+        psql -h db -U knexpresso -d postgres -tc \"SELECT 1 FROM pg_database WHERE datname = 'knexpresso'\" | grep -q 1 || psql -h db -U knexpresso -d postgres -c 'CREATE DATABASE knexpresso;' &&
+        psql -h db -U knexpresso -d knexpresso -f /docker-entrypoint-initdb.d/init.sql
+      "
+    environment:
+      PGPASSWORD: knexpresso_password
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - knexpresso-network
+
+  knexpresso:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: knexpresso-server
+    working_dir: /usr/src/app
+    command: >
+      sh -c "
+        pnpm start --config /usr/src/app/scripts/knexpresso.test.json --port 3000
+      "
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: knexpresso
+      DATABASE_PASSWORD: knexpresso_password
+      DATABASE_NAME: knexpresso_db
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+    networks:
+      - knexpresso-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://knexpresso:3000/api/users || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  knexpresso-test:
+    image: alpine
+    container_name: knexpresso-test
+    working_dir: /usr/src/app
+    command: sh -c "sh -x /usr/src/app/curl-tests.sh"  # Adding -x for debugging
+    volumes:
+      - ./curl-tests.sh:/usr/src/app/curl-tests.sh
+    depends_on:
+      knexpresso:
+        condition: service_healthy
+    networks:
+      - knexpresso-network
+
+
+networks:
+  knexpresso-network:
+    driver: bridge
