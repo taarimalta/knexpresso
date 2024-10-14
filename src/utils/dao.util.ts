@@ -1,4 +1,4 @@
-import knex, { Knex, QueryBuilder } from "knex";
+import knex, { QueryBuilder } from "knex";
 import { KNEXPRESSO_LOGGER } from "./logger.util";
 import assert from "assert";
 import { getKnexConnection } from "./connection.util";
@@ -71,10 +71,10 @@ async function executeWithLogging(
         KNEXPRESSO_LOGGER.error(
           `[database_error]: ${queryType} query failed. SQL: ${nativeQuery.sql}`,
         );
-      } catch (loggingError) {
+      } catch (loggingError: any) {
         // Handle any issues that arise during logging
         KNEXPRESSO_LOGGER.error(
-          `[database_error]: ${queryType} query failed, but SQL could not be retrieved.`,
+          `[database_error]: ${queryType} query failed, but SQL could not be retrieved. (${loggingError.message})`,
         );
       }
     } else {
@@ -110,7 +110,7 @@ export function getQueryBuilder(
   return knex.queryBuilder().table(tableName);
 }
 
-export function getDao(knex: knex.Knex): EntityDAO {
+export function getDao(_: knex.Knex): EntityDAO {
   return {
     async executeSelect(
       tableName: string,

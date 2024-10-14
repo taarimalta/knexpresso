@@ -1,7 +1,6 @@
 // index.ts
 
 import { Command } from "commander";
-import * as fs from "fs";
 import * as path from "path";
 import { startKnexpresso } from "./src";
 import { KNEXPRESSO_LOGGER } from "./src/utils/logger.util";

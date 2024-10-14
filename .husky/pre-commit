@@ -2,3 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm test
+pnpm lint:fix
+pnpm prettier:fix
+
+git add -u

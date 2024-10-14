@@ -1,48 +1,11 @@
-import {
-  KnexpressoConfig,
-  KnexpressoDependencies,
-} from "./types/knexConfig.type";
+import { KnexpressoConfig } from "./types/knexConfig.type";
 import { KNEXPRESSO_LOGGER, setKnexpressoLogger } from "./utils/logger.util";
 import { Logger } from "./types/logger.type";
-import KnexpressoServer from "./server";
 import { getKnexConnection } from "./utils/connection.util";
 import express from "express";
 import { generateRoutes } from "./server/routes";
-import { sendErrorResponse } from "./server/responseHelper";
 import { nonExistantAction } from "./controllers/nonExistantAction";
 import { errorAction } from "./controllers/errorAction";
-
-const exampleUndefinedConfig: KnexpressoConfig = {
-  database: {
-    client: "undefined",
-    connection: {
-      host: "127.0.0.1",
-      user: "your_user",
-      password: "your_password",
-      database: "your_database",
-    },
-  },
-  tables: [
-    {
-      name: "users",
-      expose: true,
-      permissions: {
-        read: true,
-        write: true,
-        delete: false,
-      },
-    },
-    {
-      name: "orders",
-      expose: true,
-      permissions: {
-        read: true,
-        write: false,
-        delete: false,
-      },
-    },
-  ],
-};
 
 export function startKnexpresso(
   config: KnexpressoConfig,

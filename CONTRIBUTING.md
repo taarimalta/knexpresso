@@ -80,7 +80,7 @@ We welcome suggestions to improve Knexpresso! To suggest an enhancement:
 
 3. **Set Up the Database**
 
-    - Configure your database settings in `knexpresso.json` or use the provided SQLite configuration.
+   - Configure your database settings in `knexpresso.json` or use the provided SQLite configuration.
 
 4. **Run the Application**
 
@@ -103,15 +103,15 @@ We welcome suggestions to improve Knexpresso! To suggest an enhancement:
 ## Commit Messages
 
 - **Format**: Use the [Conventional Commits](https://www.conventionalcommits.org/) style.
-    - Example: `feat: add authentication middleware`
+  - Example: `feat: add authentication middleware`
 - **Structure**:
-    - **feat**: A new feature
-    - **fix**: A bug fix
-    - **docs**: Documentation only changes
-    - **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc.)
-    - **refactor**: A code change that neither fixes a bug nor adds a feature
-    - **test**: Adding missing tests or correcting existing tests
-    - **chore**: Changes to the build process or auxiliary tools
+  - **feat**: A new feature
+  - **fix**: A bug fix
+  - **docs**: Documentation only changes
+  - **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc.)
+  - **refactor**: A code change that neither fixes a bug nor adds a feature
+  - **test**: Adding missing tests or correcting existing tests
+  - **chore**: Changes to the build process or auxiliary tools
 
 ## Pull Request Process
 
@@ -130,17 +130,17 @@ We welcome suggestions to improve Knexpresso! To suggest an enhancement:
 
 3. **Open a Pull Request**:
 
-    - Go to the original repository on GitHub.
-    - Click on **New pull request**.
-    - Select your feature branch.
-    - Provide a clear and descriptive title.
-    - In the description, explain the changes and reference any related issues.
+   - Go to the original repository on GitHub.
+   - Click on **New pull request**.
+   - Select your feature branch.
+   - Provide a clear and descriptive title.
+   - In the description, explain the changes and reference any related issues.
 
 4. **Wait for Review**:
 
-    - Be responsive to feedback.
-    - Make changes if requested.
-    - Ensure all checks pass before merging.
+   - Be responsive to feedback.
+   - Make changes if requested.
+   - Ensure all checks pass before merging.
 
 ## Community
 
@@ -155,4 +155,3 @@ By contributing to Knexpresso, you agree that your contributions will be license
 ---
 
 Thank you for your contributions!
-

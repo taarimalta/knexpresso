@@ -4,3 +4,4 @@ coverage/
 .git
 .idea
 docs
+*.config.js
