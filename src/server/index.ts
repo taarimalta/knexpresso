@@ -6,7 +6,7 @@ import express from "express";
 const KnexpressoServer = {
   async start(dependencies: KnexpressoDependencies): Promise<any> {
     const app = express();
-    const { db, router, serverConfig } = dependencies; // Extract dependencies (Knex, Router, and serverConfig)
+    const { router, serverConfig } = dependencies; // Extract dependencies (Knex, Router, and serverConfig)
     const PORT = serverConfig.port || process.env.PORT || 3000;
 
     // Middleware to parse JSON

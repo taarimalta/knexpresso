@@ -4,9 +4,9 @@ import { Request, Response } from "express";
 
 export const errorAction = (
   err: { message: any },
-  req: Request,
+  _req: Request,
   res: Response,
-  next: any,
+  _next: any,
 ) => {
   KNEXPRESSO_LOGGER.error(`Error occurred: ${err.message}`);
   sendErrorResponse(res, err.message || "Internal Server Error", 500);

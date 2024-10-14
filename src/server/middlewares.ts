@@ -6,9 +6,9 @@ import { sendErrorResponse } from "./responseHelper";
 
 export default function errorHandler(
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ) {
   // Log the error
   KNEXPRESSO_LOGGER.error(`Error occurred: ${err.message}`);

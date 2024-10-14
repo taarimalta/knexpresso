@@ -64,7 +64,8 @@ export async function checkExists(
   res: Response,
   next: NextFunction,
 ) {
-  const { exists, ...filterParams } = req.query; // Destructure `exists` so it isn't passed as a filter
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { exists: _exists, ...filterParams } = req.query; // Destructure `exists` so it isn't passed as a filter
 
   try {
     KNEXPRESSO_LOGGER.info(
@@ -101,7 +102,8 @@ export async function countRecords(
   res: Response,
   next: NextFunction,
 ) {
-  const { count, ...filterParams } = req.query; // Destructure `count` to remove it from filters
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { count: _count, ...filterParams } = req.query; // Destructure `count` to remove it from filters
 
   try {
     KNEXPRESSO_LOGGER.info(
