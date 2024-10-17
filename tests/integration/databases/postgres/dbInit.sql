@@ -1,9 +1,10 @@
--- PostgreSQL database initialization script
+-- Switch to the knexpresso_db database
+\c knexpresso_db;
 
 -- Drop tables if they exist to ensure a clean state
-DROP TABLE IF EXISTS addresses;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS addresses CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- Create the 'users' table
 CREATE TABLE users (
@@ -26,8 +27,3 @@ CREATE TABLE addresses (
                            street VARCHAR(255) NOT NULL,
                            city VARCHAR(255) NOT NULL
 );
-
--- Insert initial test data
-INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', 'bob@example.com');
-INSERT INTO orders (user_id, amount) VALUES (1, 250.00), (2, 150.50);
-INSERT INTO addresses (user_id, street, city) VALUES (1, '123 Main St', 'Wonderland'), (2, '456 Elm St', 'Springfield');

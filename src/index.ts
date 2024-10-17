@@ -6,12 +6,13 @@ import express from "express";
 import { generateRoutes } from "./server/routes";
 import { nonExistantAction } from "./controllers/nonExistantAction";
 import { errorAction } from "./controllers/errorAction";
+import { Server } from "http";
 
 export function startKnexpresso(
   config: KnexpressoConfig,
   port?: number,
   logger?: Logger,
-) {
+): Promise<Server> {
   if (!config) throw new Error("KnexpressoConfig is required");
   if (logger) setKnexpressoLogger(logger);
 
