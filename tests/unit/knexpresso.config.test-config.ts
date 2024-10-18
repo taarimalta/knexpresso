@@ -1,4 +1,4 @@
-import { KnexpressoConfig } from "./src/types/knexConfig.type";
+import { KnexpressoConfig } from "../../src/types/knexConfig.type";
 
 export default {
   database: {

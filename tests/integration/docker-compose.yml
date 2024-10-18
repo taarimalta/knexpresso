@@ -28,7 +28,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./tests/integration/databases/mysql/dbInit.sql:/docker-entrypoint-initdb.d/dbInit.sql
+      - ./databases/mysql/dbInit.sql:/docker-entrypoint-initdb.d/dbInit.sql
     command: [
       '--default-authentication-plugin=mysql_native_password',
       '--sql_mode=NO_ENGINE_SUBSTITUTION',
@@ -42,24 +42,7 @@ services:
       retries: 5
     restart: unless-stopped
 
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    environment:
-      ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Mssql_password1!"
-    ports:
-      - "1433:1433"
-    volumes:
-      - ./tests/integration/databases/mssql/dbInit.sql:/docker-entrypoint-initdb.d/dbInit.sql
-    healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'Mssql_password1!' -Q 'SELECT 1'"]
-      interval: 10s
-      timeout: 10s
-      retries: 10
-    restart: unless-stopped
 
-  # SQLite does not require a service as it is a file-based database.
-  # If needed, you can include a service here for consistency, but it's not necessary.
 
 networks:
   default:

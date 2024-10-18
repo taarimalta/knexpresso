@@ -1,10 +1,10 @@
 import { startKnexpresso } from "../../../../src";
 import { getKnexConnection } from "../../../../src/utils/connection.util";
 import { postgresConfig } from "../../configs/postgres.knexpressoConfig";
-import { cleanupIntegrationTestDatabase } from "../../common/cleanup";
 import { Server } from "http";
-import { setupIntegrationTestDatabase } from "../../common/setup";
 import request from "supertest";
+import { setupDatabase } from "../../../common/testSetup";
+import { cleanupDatabase } from "../../../common/testCleanup";
 
 let server: Server;
 const db = getKnexConnection(postgresConfig);
@@ -15,7 +15,7 @@ beforeAll(async () => {
   console.log("Server started.");
 
   // Set up the database schema and initial data
-  await setupIntegrationTestDatabase(db);
+  await setupDatabase(db);
 });
 
 afterAll(async () => {
@@ -29,7 +29,7 @@ afterAll(async () => {
     });
   });
 
-  await cleanupIntegrationTestDatabase(db);
+  await cleanupDatabase(db);
 
   console.log("Server stopped.");
 });

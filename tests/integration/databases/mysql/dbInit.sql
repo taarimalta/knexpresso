@@ -28,8 +28,3 @@ CREATE TABLE addresses (
                            city VARCHAR(255) NOT NULL,
                            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
--- Insert initial test data
-INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com'), ('Bob', 'bob@example.com');
-INSERT INTO orders (user_id, amount) VALUES (1, 250.00), (2, 150.50);
-INSERT INTO addresses (user_id, street, city) VALUES (1, '123 Main St', 'Wonderland'), (2, '456 Elm St', 'Springfield');
